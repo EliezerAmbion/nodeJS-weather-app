@@ -5,8 +5,6 @@ const geoCode = require('./utils/geocode');
 const forecast = require('./utils/forecast');
 
 const app = express();
-//,env is an object and it's where we can access environment variables.
-// this is used when you want to deploy your app
 const port = process.env.PORT || 3000;
 
 // Define paths for express config
@@ -94,5 +92,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log('Server is up on port 3000');
+  console.log('Listening to ', port);
 });
