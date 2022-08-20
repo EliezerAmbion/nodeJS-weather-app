@@ -5,7 +5,7 @@ const forecast = (latitude, longitude, callback) => {
 
   request({ url, json: true }, (error, { body }) => {
     const { current, location, error: coordinateError } = body;
-    const { temperature, weather_descriptions, precip } = current;
+    const isMorning = current.is_day === 'yes' ? true : false;
 
     if (error) {
       return callback('Unable to connect to weather service!', undefined);
@@ -15,7 +15,11 @@ const forecast = (latitude, longitude, callback) => {
 
     callback(
       undefined,
-      `${location.region} forecast: ${weather_descriptions}. It is currently ${temperature} degrees farenheit out. There is a ${precip}% chance of rain`
+      `${isMorning ? 'Morning' : 'Night'} sky. ${
+        current.weather_descriptions
+      }. It is currently ${
+        current.temperature
+      } degrees farenheit out. There is a ${current.precip}% chance of rain`
     );
   });
 };
