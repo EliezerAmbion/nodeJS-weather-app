@@ -43,12 +43,18 @@ app.get('/help', (req, res) => {
 });
 
 app.get('/weather', (req, res) => {
+  // query string lives in the request(res)
+  // example url: http://localhost:3000/weather?address=pasay
+  // after the question mark(?) is the query string i.e address=pasay
   if (!req.query.address) {
     return res.send({
       error: 'No address provided!',
     });
   }
 
+  // TypeError: Cannot destructure property 'latitude' of 'undefined' as it is undefined.
+  // This error will show if you didn't have an address passed
+  // Solution: you have added a default value of empty object
   geoCode(
     req.query.address,
     (error, { latitude, longitude, location } = {}) => {
