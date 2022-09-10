@@ -9,13 +9,15 @@ const port = process.env.PORT || 3000;
 
 // Define paths for express config
 const publicDirectoryPath = path.join(__dirname, '../public');
+
+// W/o this, express is going to look for the root path in public directory.
 const viewsPath = path.join(__dirname, '../templates/views');
 const partialsPath = path.join(__dirname, '../templates/partials');
 
 // Setup handlebars engine and views location
-app.set('view engine', 'hbs');
-app.set('views', viewsPath);
-hbs.registerPartials(partialsPath);
+app.set('view engine', 'hbs'); // calling the handlebars and setup the view engine to start
+app.set('views', viewsPath); // using the custom directory
+hbs.registerPartials(partialsPath); // using hbs.registerPartials to tell express that this is the partials
 
 // Setup static directory to serve
 app.use(express.static(publicDirectoryPath));
